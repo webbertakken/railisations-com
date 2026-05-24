@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="25%" r="80%">
+      <stop offset="0%" stop-color="#2a2a2a" />
+      <stop offset="100%" stop-color="#0e0e0e" />
+    </radialGradient>
+    <radialGradient id="copper" cx="32%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#ffdcc2" />
+      <stop offset="55%" stop-color="#d98c45" />
+      <stop offset="100%" stop-color="#532b00" />
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="url(#bg)" />
+  <g transform="translate(32 32)" fill="url(#copper)" stroke="#2e1500" stroke-width="1.5">
+    <!-- 12 teeth radiating outwards -->
+    <g>
+      <rect x="-3.5" y="-26" width="7" height="8" rx="1.2" />
+      <g transform="rotate(30)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+      <g transform="rotate(60)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+      <g transform="rotate(90)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+      <g transform="rotate(120)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+      <g transform="rotate(150)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+      <g transform="rotate(180)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+      <g transform="rotate(210)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+      <g transform="rotate(240)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+      <g transform="rotate(270)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+      <g transform="rotate(300)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+      <g transform="rotate(330)"><rect x="-3.5" y="-26" width="7" height="8" rx="1.2" /></g>
+    </g>
+    <circle r="20" />
+  </g>
+  <!-- Inner ornate ring -->
+  <g transform="translate(32 32)" fill="none" stroke="#532b00" stroke-width="1.2" opacity="0.6">
+    <circle r="14" />
+    <circle r="10" />
+  </g>
+  <!-- Center rivet -->
+  <g transform="translate(32 32)">
+    <circle r="6" fill="url(#copper)" stroke="#2e1500" stroke-width="1.5" />
+    <circle r="2.2" cx="-1.5" cy="-1.5" fill="#ffdcc2" opacity="0.85" />
+  </g>
+</svg>

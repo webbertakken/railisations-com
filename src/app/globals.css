@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Nocturnal Copper - surfaces */
+  --color-background: #131313;
+  --color-surface: #131313;
+  --color-surface-dim: #131313;
+  --color-surface-bright: #393939;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-low: #1c1b1b;
+  --color-surface-container: #201f1f;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353534;
+  --color-surface-variant: #353534;
+
+  /* Foreground */
+  --color-on-background: #e5e2e1;
+  --color-on-surface: #e5e2e1;
+  --color-on-surface-variant: #d8c3b3;
+
+  /* Inverse */
+  --color-inverse-surface: #e5e2e1;
+  --color-inverse-on-surface: #313030;
+  --color-inverse-primary: #8d4f08;
+
+  /* Outline */
+  --color-outline: #a08d7f;
+  --color-outline-variant: #534438;
+
+  /* Primary (Luminous Copper) */
+  --color-surface-tint: #ffb77a;
+  --color-primary: #ffb77a;
+  --color-on-primary: #4c2700;
+  --color-primary-container: #d98c45;
+  --color-on-primary-container: #532b00;
+  --color-primary-fixed: #ffdcc2;
+  --color-primary-fixed-dim: #ffb77a;
+  --color-on-primary-fixed: #2e1500;
+  --color-on-primary-fixed-variant: #6d3a00;
+
+  /* Secondary */
+  --color-secondary: #c8c6c5;
+  --color-on-secondary: #303030;
+  --color-secondary-container: #474746;
+  --color-on-secondary-container: #b7b5b4;
+  --color-secondary-fixed: #e5e2e1;
+  --color-secondary-fixed-dim: #c8c6c5;
+  --color-on-secondary-fixed: #1b1b1c;
+  --color-on-secondary-fixed-variant: #474746;
+
+  /* Tertiary */
+  --color-tertiary: #6bd5ed;
+  --color-on-tertiary: #00363f;
+  --color-tertiary-container: #3aabc2;
+  --color-on-tertiary-container: #003b45;
+  --color-tertiary-fixed: #a8edff;
+  --color-tertiary-fixed-dim: #6bd5ed;
+  --color-on-tertiary-fixed: #001f26;
+  --color-on-tertiary-fixed-variant: #004e5b;
+
+  /* Error */
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  /* Spacing extensions */
+  --spacing-unit: 8px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 64px;
+  --container-7xl: 1280px;
+
+  /* Font families - Playfair Display + Montserrat loaded via next/font */
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --font-headline-sm: var(--font-display);
+  --font-display-lg-mobile: var(--font-display);
+  --font-display-lg: var(--font-display);
+  --font-headline-md: var(--font-display);
+  --font-label-sm: var(--font-body);
+  --font-label-md: var(--font-body);
+  --font-body-lg: var(--font-body);
+  --font-body-md: var(--font-body);
+
+  /* Font sizes - match design tokens exactly */
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 56px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 600;
+
+  --text-display-lg-mobile: 36px;
+  --text-display-lg-mobile--line-height: 42px;
+  --text-display-lg-mobile--letter-spacing: -0.02em;
+  --text-display-lg-mobile--font-weight: 600;
+
+  --text-headline-md: 32px;
+  --text-headline-md--line-height: 40px;
+  --text-headline-md--font-weight: 500;
+
+  --text-headline-sm: 24px;
+  --text-headline-sm--line-height: 32px;
+  --text-headline-sm--font-weight: 500;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-label-md: 14px;
+  --text-label-md--line-height: 20px;
+  --text-label-md--letter-spacing: 0.01em;
+  --text-label-md--font-weight: 500;
+
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 16px;
+  --text-label-sm--letter-spacing: 0.05em;
+  --text-label-sm--font-weight: 600;
+
+  /* Radius */
+  --radius-DEFAULT: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+}
+
+/* Force dark colour scheme everywhere */
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Bespoke recipes from designs/.../code.html, ported verbatim. */
+@layer components {
+  .copper-spine {
+    width: 10px;
+    background: linear-gradient(
+      90deg,
+      #1c1b1b 0%,
+      #a08d7f 20%,
+      #d98c45 50%,
+      #532b00 80%,
+      #1c1b1b 100%
+    );
+    border-left: 1px solid rgba(255, 183, 122, 0.4);
+    border-right: 1px solid rgba(255, 183, 122, 0.4);
+    box-shadow:
+      0 0 10px rgba(0, 0, 0, 0.8),
+      inset 0 0 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .copper-connector {
+    height: 4px;
+    background: linear-gradient(180deg, #532b00 0%, #d98c45 50%, #532b00 100%);
+    border-top: 1px solid rgba(255, 183, 122, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+  }
+
+  .rivet-node {
+    background: radial-gradient(circle at center, #ffb77a 0%, #d98c45 40%, #532b00 100%);
+    border: 2px solid #2e1500;
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.6),
+      inset 0 2px 3px rgba(255, 255, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .node-active {
+    box-shadow:
+      0 0 15px rgba(217, 140, 69, 0.8),
+      inset 0 2px 3px rgba(255, 255, 255, 0.6);
+    border-color: #ffb77a;
+  }
+
+  .ambient-shadow {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  }
+
+  .vintage-card {
+    border: 1px solid #534438;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 183, 122, 0.05),
+      0 4px 20px rgba(0, 0, 0, 0.4);
+    position: relative;
+  }
+
+  .vintage-card::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border: 1px solid rgba(217, 140, 69, 0.15);
+    pointer-events: none;
+    border-radius: 8px;
+  }
+
+  .rivet {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle at 30% 30%, #ffdcc2, #d98c45);
+    border-radius: 50%;
+    border: 1px solid #532b00;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 30;
+  }
+  .rivet-tl {
+    top: 8px;
+    left: 8px;
+  }
+  .rivet-tr {
+    top: 8px;
+    right: 8px;
+  }
+  .rivet-bl {
+    bottom: 8px;
+    left: 8px;
+  }
+  .rivet-br {
+    bottom: 8px;
+    right: 8px;
+  }
+
+  .card-hover:hover {
+    box-shadow:
+      0 8px 30px rgba(0, 0, 0, 0.6),
+      inset 0 0 0 1px rgba(255, 183, 122, 0.1);
+    border-color: #d98c45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
