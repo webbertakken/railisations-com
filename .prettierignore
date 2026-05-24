@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+coverage
+playwright-report
+test-results
+designs
+.wrangler
+package-lock.json
+src/index.js

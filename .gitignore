@@ -1,4 +1,27 @@
+# dependencies
 node_modules/
+
+# build / runtime
+.next/
+out/
 .wrangler/
 .dev.vars
 .DS_Store
+
+# tests
+coverage/
+test-results/
+playwright-report/
+.vitest-tmp/
+
+# editor
+.idea/
+.vscode/
+
+# misc
+*.log
+tsconfig.tsbuildinfo
+
+# generated visual references (regenerate with scripts/visual-snapshot.ts)
+designs/snapshots/
+designs/extracted/
