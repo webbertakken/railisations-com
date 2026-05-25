@@ -1,5 +1,9 @@
 # dependencies
 node_modules/
+.yarn/
+yarn.lock
+pnpm-lock.yaml
+pnpm-workspace.yaml
 
 # build / runtime
 .next/

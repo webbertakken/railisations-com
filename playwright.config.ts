@@ -31,8 +31,10 @@ export default defineConfig({
     },
   ],
   webServer: {
-    // `serve out -p PORT --no-clipboard --single` serves the static export.
-    command: `npx --yes serve out -p ${PORT} --no-clipboard --single`,
+    // Plain static file server over `out/`. Don't use `--single`, which
+    // would rewrite every URL (including /privacy/) to /index.html and
+    // break multi-route navigation.
+    command: `npx --yes serve out -p ${PORT} --no-clipboard`,
     url: BASE_URL,
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,

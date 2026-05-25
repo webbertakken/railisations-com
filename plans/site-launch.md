@@ -121,3 +121,26 @@ Do NOT deploy; verify locally only.
 - [x] Hand-eyeball Playwright report screenshots vs the design PNG.
 - [x] Commit in logical TDD batches (`test:` then `feat:` etc.).
 - [x] Stop here. Do not deploy.
+
+### 10. Branding refresh
+- [x] `BrandLogo` + `BrandMark` ("Railisations", "AI" highlighted in
+      `--color-primary-fixed`); used by header + footer; favicon SVG
+      reused inline as the header logo.
+- [x] Metadata + a11y labels switched to Railisations.
+- [x] Copyright owner switched to Railisations.
+
+### 11. Trim nav + add local fuzzy search
+- [x] Header: drop Archive/Resources/Contact + Sign In. Keep brand,
+      "Lessons" page indicator, and Search.
+- [x] `src/lib/search.ts`: pure scorer (substring + subsequence) over
+      the 20-lesson set; 100% tested.
+- [x] `src/lib/ids.ts`: `lessonId(date)` slugifier used as DOM anchor.
+- [x] `<TimelineRow />` exposes the slug on the outer `<li>` so search
+      results can `scrollIntoView` + briefly highlight via
+      `data-highlight="true"` and a CSS pulse.
+- [x] `<SearchOverlay />`: native `<dialog>` modal, input, ranked
+      result list, arrow-key navigation, Enter to jump, ESC + backdrop
+      to close, `Cmd/Ctrl+K` global shortcut.
+- [x] E2E covers: search button opens dialog, typing filters,
+      selecting a result closes the dialog + scrolls + highlights.
+- [x] 100% unit-test coverage maintained.

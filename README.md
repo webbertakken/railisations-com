@@ -1,8 +1,14 @@
-# railisations.com — Copper Lessons
+# railisations.com — Railisations
 
-Static, fully animated implementation of the **Victorian Timeline (Industrial Serif)** design
-from the **Nocturnal Copper** design system, rendered with Next.js 16 + React 19 +
-Tailwind v4 + `@react-spring/web` 10, hosted on Cloudflare Workers static assets.
+Static, fully animated **Railisations** site built on the **Victorian Timeline
+(Industrial Serif)** layout from the **Nocturnal Copper** design system, rendered
+with Next.js 16 + React 19 + Tailwind v4 + `@react-spring/web` 10, hosted on
+Cloudflare Workers static assets.
+
+Branding: the wordmark **Railisations** highlights the inner `AI` in the
+lighter copper (`--color-primary-fixed` / `#ffdcc2`); the rest sits on the
+luminous copper (`--color-primary` / `#ffb77a`). The brass cog favicon is
+used inline as the header logo (see `src/components/brand-mark.tsx`).
 
 ## Quick start
 
@@ -52,6 +58,7 @@ src/
 │   ├── icon.svg          # brass gear favicon
 │   └── globals.css       # Tailwind v4 @theme + bespoke copper utilities
 ├── components/           # Client components, all "use client"
+│   ├── brand-mark.tsx    # <BrandLogo /> + <BrandMark /> ("Railisations")
 │   ├── site-header.tsx
 │   ├── site-footer.tsx
 │   ├── timeline.tsx
