@@ -22,8 +22,10 @@ export default defineConfig({
       exclude: [
         "src/**/*.{test,spec}.{ts,tsx}",
         "src/test/**",
-        "src/app/layout.tsx",
-        "src/app/page.tsx",
+        // App Router page / layout / icon files are thin compositions of
+        // already-covered components; testing them is duplication.
+        "src/app/**/page.tsx",
+        "src/app/**/layout.tsx",
         "src/app/icon.tsx",
         "src/app/apple-icon.tsx",
         "src/**/*.d.ts",

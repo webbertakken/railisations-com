@@ -7,8 +7,13 @@ export type InViewResult<T extends Element> = {
   inView: boolean;
 };
 
+/**
+ * Bidirectional in-view observer. `inView` flips true when the target
+ * intersects the viewport and back to false when it leaves, so callers
+ * can drive enter/exit animations without a one-shot latch.
+ */
 export function useInView<T extends Element>(
-  options: IntersectionObserverInit = { threshold: 0.2, rootMargin: "0px 0px -10% 0px" },
+  options: IntersectionObserverInit = { threshold: 0.15, rootMargin: "0px" },
 ): InViewResult<T> {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const targetRef = useRef<T | null>(null);
@@ -38,10 +43,7 @@ export function useInView<T extends Element>(
 
       const observer = new IntersectionObserver((entries) => {
         const entry = entries.find((e) => e.target === node) ?? entries[0];
-        if (entry?.isIntersecting) {
-          setInView(true);
-          observer.unobserve(node);
-        }
+        if (entry) setInView(entry.isIntersecting);
       }, options);
 
       observer.observe(node);

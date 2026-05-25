@@ -18,12 +18,12 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Copper Lessons — 20 Lessons | Industrial Heritage Archives",
+  title: "Railisations - 20 lessons",
   description:
-    "A chronologically arranged collection of twenty lessons drawn from the industrial heritage archives — a luminous copper timeline on a deep charcoal canvas.",
-  applicationName: "Copper Lessons",
+    "Railisations: a chronologically arranged collection of twenty lessons, rendered as a luminous copper timeline on a deep charcoal canvas.",
+  applicationName: "Railisations",
   openGraph: {
-    title: "Copper Lessons — 20 Lessons",
+    title: "Railisations - 20 lessons",
     description:
       "Twenty lessons in a luminous copper timeline, presented for late-night reading.",
     type: "website",

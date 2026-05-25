@@ -13,6 +13,18 @@ afterEach(() => {
 });
 
 describe("TimelineRow", () => {
+  it("marks the row wrapper with the timeline-row hover-group class", () => {
+    const { container } = render(<TimelineRow lesson={lesson} index={0} />);
+    const row = container.querySelector(".timeline-row");
+    expect(row).not.toBeNull();
+  });
+
+  it("tags every date element with the row-date class so :has(:hover) can target it", () => {
+    const { container } = render(<TimelineRow lesson={lesson} index={0} />);
+    // One date on mobile, one on desktop = two .row-date elements.
+    expect(container.querySelectorAll(".row-date").length).toBeGreaterThanOrEqual(2);
+  });
+
   it("renders both the mobile and desktop variants of every primitive", () => {
     render(<TimelineRow lesson={lesson} index={0} />);
     // Card title appears in both the mobile and the desktop layouts.

@@ -22,10 +22,10 @@ export function LessonCard({ title, desc, size, inView }: LessonCardProps) {
   const mounted = useMounted();
   const animate = mounted && !reduced;
   // SSR + reduced-motion path keeps the card in its final state.
+  // Pure opacity fade - no translateY slide.
   const spring = useSpring({
     opacity: !animate || inView ? 1 : 0,
-    transform: !animate || inView ? "translateY(0px)" : "translateY(24px)",
-    config: { tension: 220, friction: 26 },
+    config: { tension: 320, friction: 26, clamp: false },
     immediate: !animate,
   });
 

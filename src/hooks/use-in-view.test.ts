@@ -37,7 +37,7 @@ afterEach(() => {
 });
 
 describe("useInView", () => {
-  it("flips to true when the observer fires an intersecting entry, then unobserves", () => {
+  it("flips to true when intersecting and back to false when leaving (bidirectional)", () => {
     let cb: Cb = () => {};
     const unobserve = vi.fn();
     vi.stubGlobal(
@@ -56,12 +56,18 @@ describe("useInView", () => {
     act(() => {
       cb([{ isIntersecting: true, target: div }]);
     });
-
     expect(result.current.inView).toBe(true);
-    expect(unobserve).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      cb([{ isIntersecting: false, target: div }]);
+    });
+    expect(result.current.inView).toBe(false);
+
+    // Critically: the observer keeps watching, it should NEVER unobserve.
+    expect(unobserve).not.toHaveBeenCalled();
   });
 
-  it("does not flip while the entry is not intersecting", () => {
+  it("stays false while the entry is not intersecting", () => {
     let cb: Cb = () => {};
     vi.stubGlobal("IntersectionObserver", makeObserverCtor({ capture: (c) => (cb = c) }));
 
@@ -108,6 +114,20 @@ describe("useInView", () => {
       result.current.ref(document.createElement("div"));
     });
     expect(disconnect).toHaveBeenCalledTimes(1);
+  });
+
+  it("ignores observer callbacks fired with an empty entries array", () => {
+    let cb: Cb = () => {};
+    vi.stubGlobal("IntersectionObserver", makeObserverCtor({ capture: (c) => (cb = c) }));
+    const { result } = renderHook(() => useInView<HTMLDivElement>());
+    act(() => {
+      result.current.ref(document.createElement("div"));
+    });
+    // An empty entries array must not throw or flip the state.
+    act(() => {
+      cb([]);
+    });
+    expect(result.current.inView).toBe(false);
   });
 
   it("clears the observer when ref is called with null", () => {

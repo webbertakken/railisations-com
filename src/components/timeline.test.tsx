@@ -4,12 +4,15 @@ import { describe, expect, it } from "vitest";
 import { lessons } from "@/data/lessons";
 import { Timeline } from "./timeline";
 
+const populated = lessons.filter((l) => l.title.length > 0);
+
 describe("Timeline", () => {
-  it("renders one row per lesson in the supplied order", () => {
-    render(<Timeline />);
-    const headings = screen.getAllByRole("heading", { level: 3 });
-    // Mobile + desktop each render the title, so 20 lessons -> 40 headings.
-    expect(headings).toHaveLength(lessons.length * 2);
+  it("renders one card per populated lesson (mobile + desktop variants)", () => {
+    const { container } = render(<Timeline />);
+    // Each lesson row paints two articles (mobile + desktop layouts).
+    // Placeholder (empty-title) lessons are skipped.
+    const articles = container.querySelectorAll("article");
+    expect(articles.length).toBe(populated.length * 2);
   });
 
   it("paints a copper spine both for desktop and mobile rails", () => {
@@ -18,21 +21,36 @@ describe("Timeline", () => {
     expect(spines.length).toBe(2);
   });
 
-  it("renders the lesson titles in their original chronological order", () => {
-    render(<Timeline />);
-    const titles = screen
-      .getAllByRole("heading", { level: 3 })
+  it("renders the populated lesson titles in their original chronological order", () => {
+    const { container } = render(<Timeline />);
+    const titles = Array.from(container.querySelectorAll("article h3"))
       .map((h) => h.textContent)
-      .filter((t, i) => i % 2 === 0);
-    expect(titles).toEqual(lessons.map((l) => l.title));
+      .filter((_, i) => i % 2 === 0);
+    expect(titles).toEqual(populated.map((l) => l.title));
   });
 
-  it("server-renders all 20 titles with the spine fully extended", () => {
+  it("server-renders every populated title with the spine fully extended", () => {
     const html = renderToString(<Timeline />);
-    for (const lesson of lessons) {
+    for (const lesson of populated) {
       expect(html).toContain(lesson.title);
     }
     // SSR fast-path: spine ends at scaleY(1), opacity:1.
     expect(html).toContain("scaleY(1)");
+  });
+
+  it("closes the timeline with the SuggestionPrompt epilogue", () => {
+    render(<Timeline />);
+    const epilogue = screen.getByRole("heading", {
+      level: 3,
+      name: /have a lesson worth adding/i,
+    });
+    expect(epilogue).toBeInTheDocument();
+    // DOM order: epilogue lands AFTER the final lesson title.
+    const finalLesson = screen.getAllByRole("heading", {
+      level: 3,
+      name: populated[populated.length - 1]!.title,
+    })[0]!;
+    const order = finalLesson.compareDocumentPosition(epilogue);
+    expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 });

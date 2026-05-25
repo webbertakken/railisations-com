@@ -17,7 +17,7 @@ type Side = "left" | "right";
 
 function DesktopDate({ date }: { date: string }) {
   return (
-    <span className="font-label-md text-label-md text-primary font-bold tracking-[0.2em] uppercase">
+    <span className="row-date font-label-md text-label-md text-primary font-bold tracking-[0.2em] uppercase transition-colors duration-200">
       {date}
     </span>
   );
@@ -33,21 +33,24 @@ export function TimelineRow({ lesson, index }: TimelineRowProps) {
 
   const connector = useSpring({
     width: !animate || inView ? "64px" : "0px",
-    config: { tension: 180, friction: 24 },
-    delay: animate ? 120 : 0,
+    config: { tension: 280, friction: 22 },
+    delay: animate && inView ? 60 : 0,
     immediate: !animate,
   });
 
   const dateSpring = useSpring({
+    // Match the card: pure opacity fade, no vertical slide.
     opacity: !animate || inView ? 1 : 0,
-    transform: !animate || inView ? "translateY(0px)" : "translateY(16px)",
-    config: { tension: 220, friction: 26 },
-    delay: animate ? 80 : 0,
+    config: { tension: 320, friction: 26 },
+    delay: animate && inView ? 40 : 0,
     immediate: !animate,
   });
 
   return (
-    <div ref={ref} className="relative flex w-full items-start pl-12 md:justify-center md:pl-0">
+    <div
+      ref={ref}
+      className="timeline-row relative flex w-full items-start pl-12 md:justify-center md:pl-0"
+    >
       {/* Mobile node (always left rail) */}
       <span className="absolute top-6 left-[6px] z-20 -translate-x-1/2 md:hidden">
         <TimelineNode active={isActive} variant="mobile" label={lesson.title} />
@@ -55,9 +58,12 @@ export function TimelineRow({ lesson, index }: TimelineRowProps) {
 
       {/* Mobile column */}
       <div className="flex w-full flex-col gap-2 md:hidden" data-testid="timeline-row-mobile">
-        <span className="font-label-sm text-label-sm text-primary mb-1 font-bold tracking-widest uppercase">
+        <animated.span
+          style={dateSpring}
+          className="row-date font-label-sm text-label-sm text-primary mb-1 font-bold tracking-widest uppercase transition-colors duration-200"
+        >
           {lesson.date}
-        </span>
+        </animated.span>
         <LessonCard title={lesson.title} desc={lesson.desc} size="sm" inView={inView} />
       </div>
 
