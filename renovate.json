@@ -1,4 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>webbertakken/.github:renovate-config"]
+  "extends": ["local>webbertakken/.github:renovate-config"],
+  "packageRules": [
+    {
+      "description": "typescript-eslint does not support TypeScript 7 yet (typescript-eslint/typescript-eslint#10940)",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
+    }
+  ]
 }
