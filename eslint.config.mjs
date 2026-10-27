@@ -18,6 +18,9 @@ const config = [
   ...nextCoreWebVitals,
   ...nextTypescript,
   {
+    settings: {
+      react: { version: "19.2" },
+    },
     rules: {
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-unused-vars": [
