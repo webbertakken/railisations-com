@@ -36,9 +36,7 @@ test.describe("Copper Lessons timeline", () => {
     await expect(dialog.getByRole("searchbox")).toBeFocused();
   });
 
-  test("typing in the search filters lessons and Enter scrolls to the match", async ({
-    page,
-  }) => {
+  test("typing in the search filters lessons and Enter scrolls to the match", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
     await page.getByRole("button", { name: /search/i }).click();
@@ -114,9 +112,7 @@ test.describe("Copper Lessons timeline", () => {
     await expect(epilogue).toBeVisible();
 
     // The epilogue's CTA is a real outbound link to the public discussion.
-    const cta = page
-      .getByRole("complementary")
-      .getByRole("link", { name: /Suggest a lesson/i });
+    const cta = page.getByRole("complementary").getByRole("link", { name: /Suggest a lesson/i });
     await expect(cta).toHaveAttribute("target", "_blank");
     await expect(cta).toHaveAttribute("rel", "noopener noreferrer");
   });
@@ -140,6 +136,19 @@ test.describe("Copper Lessons timeline", () => {
     await page.waitForURL(/\/(\?.*)?$/);
     // Home renders the lesson timeline.
     await expect(page.getByRole("region", { name: /lessons timeline/i })).toBeVisible();
+  });
+
+  test("searching from a legal page jumps home to the highlighted lesson", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/privacy/");
+    await page.getByRole("button", { name: /search/i }).click();
+    await page.getByRole("searchbox").fill("agentic");
+    await page.getByRole("searchbox").press("Enter");
+
+    await page.waitForURL(/\/#lesson-may-2025$/);
+    const target = page.locator("#lesson-may-2025");
+    await expect(target).toBeInViewport();
+    await expect(target).toHaveAttribute("data-highlight", "true");
   });
 
   test("renders all 20 lesson dates and titles in chronological order", async ({ page }) => {
@@ -202,9 +211,9 @@ test.describe("Copper Lessons timeline", () => {
       .first();
 
     await card.scrollIntoViewIfNeeded();
-    await expect.poll(async () => card.getAttribute("data-in-view"), { timeout: 3000 }).toBe(
-      "true",
-    );
+    await expect
+      .poll(async () => card.getAttribute("data-in-view"), { timeout: 3000 })
+      .toBe("true");
     await expect(card).toBeVisible();
   });
 });
