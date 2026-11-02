@@ -1,10 +1,15 @@
 import "@testing-library/jest-dom/vitest";
 import { afterEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
+import { appRouter } from "./app-router";
 
 afterEach(() => {
   cleanup();
+  appRouter.push.mockReset();
 });
+
+// jsdom renders components outside an App Router; hand them a stand-in router.
+vi.mock("next/navigation", () => ({ useRouter: () => appRouter }));
 
 // jsdom does not implement matchMedia; provide a controllable stub.
 function makeMatchMedia(query: string): MediaQueryList {

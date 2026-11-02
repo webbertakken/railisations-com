@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { appRouter } from "@/test/app-router";
 import { SiteShell } from "./site-shell";
 
 beforeEach(() => {
@@ -72,12 +73,11 @@ describe("SiteShell", () => {
     target.remove();
   });
 
-  it("falls back to a hash navigation when the lesson is not on the current page", async () => {
+  it("routes home to the lesson's hash when the lesson is not on the current page", async () => {
     const user = userEvent.setup();
-    const assign = vi.fn();
     Object.defineProperty(window, "location", {
       configurable: true,
-      value: { ...window.location, hash: "", assign },
+      value: { ...window.location, hash: "" },
     });
 
     render(
@@ -88,7 +88,7 @@ describe("SiteShell", () => {
     await user.click(screen.getByRole("button", { name: /search/i }));
     await user.type(screen.getByRole("searchbox"), "autocomp");
     await user.keyboard("{Enter}");
-    expect(assign).toHaveBeenCalledWith("/#lesson-june-2021");
+    expect(appRouter.push).toHaveBeenCalledWith("/#lesson-june-2021");
   });
 
   it("applies the highlight pulse when arriving with a matching /#lesson-... hash", async () => {

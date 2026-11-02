@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import type { Lesson } from "@/data/lessons";
 import { lessonId } from "@/lib/ids";
@@ -25,6 +26,7 @@ export type SiteShellProps = {
  * server component compatible with `output: 'export'`.
  */
 export function SiteShell({ children, highlightMs = DEFAULT_HIGHLIGHT_MS }: SiteShellProps) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const close = useCallback(() => setOpen(false), []);
@@ -50,11 +52,11 @@ export function SiteShell({ children, highlightMs = DEFAULT_HIGHLIGHT_MS }: Site
         highlight(target, highlightMs);
       } else {
         // The lesson isn't on the current page (we're on a legal page).
-        // Send the user home with a hash so the home page scrolls to it.
-        window.location.assign(`/#${id}`);
+        // Route the user home with a hash so the home page scrolls to it.
+        router.push(`/#${id}`);
       }
     },
-    [highlightMs],
+    [highlightMs, router],
   );
 
   // When the page loads with a /#lesson-... hash (e.g. via search from a
